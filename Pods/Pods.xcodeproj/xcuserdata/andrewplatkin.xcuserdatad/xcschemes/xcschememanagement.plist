@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>KeychainAccess.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MGSwipeTableCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-trackto.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftOverlays.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>7DDE68C41FFE4146120CF711EC74F0C2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8EFF47FAFF5A87901DA9B0D2CB39E87A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CC0076E6624F9FB25DCBEAAFBD4B1362</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D989E96584D6C4B7CF63913C0128C81C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F09F97B861B4BC54C3007BF27B58D3FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
