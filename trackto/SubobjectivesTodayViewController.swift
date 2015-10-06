@@ -31,8 +31,12 @@ class SubobjectivesTodayViewController: ParentViewController, UITableViewDataSou
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        renderSubobjectivesToday()
+    }
+    
+    override func applicationDidBecomeActive() {
         renderSubobjectivesToday()
     }
     

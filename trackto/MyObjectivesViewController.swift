@@ -26,10 +26,12 @@ class MyObjectivesViewController: ParentViewController, UITableViewDelegate, UIT
         setupNavigation()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        
-        // Load Data
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
+    }
+    
+    override func applicationDidBecomeActive() {
         loadData()
     }
     
@@ -47,6 +49,10 @@ class MyObjectivesViewController: ParentViewController, UITableViewDelegate, UIT
                         } else {
                             self.renderLoginScreen()
                         }
+                    }
+                } else {
+                    if let errorMsg = error {
+                        self.showErrorMessage(errorMsg)
                     }
                 }
             } else {

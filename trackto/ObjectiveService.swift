@@ -114,4 +114,46 @@ class ObjectiveService: BaseRequest {
         }
     }
     
+    func deleteObjective(objectiveId: Int, callback: (Bool, String?) -> Void) {
+        let deleteObjectiveURL = baseURL + "/objectives/\(objectiveId)"
+        
+        HTTPDeleteJSON(deleteObjectiveURL) {
+            (response: Dictionary<String, AnyObject>, error: String?) -> Void in
+            
+            if (error != nil) {
+                if let statusCode = response["statusCode"] as? Int {
+                    // Unauthorized
+                    if statusCode == 401 {
+                        callback(false, "Unauthorized")
+                    } else {
+                        callback(false, error)
+                    }
+                }
+            } else {
+                callback(true, nil)
+            }
+        }
+    }
+    
+    func updateObjective(objective: Objective, callback: (Bool, String?) -> Void) {
+        let updateObjectiveURL = baseURL + "/objectives/\(objective.objectiveId)"
+        
+        HTTPPutJSON(updateObjectiveURL, jsonObj: objective.toJSONString()) {
+            (response: Dictionary<String, AnyObject>, error: String?) -> Void in
+            
+            if (error != nil) {
+                if let statusCode = response["statusCode"] as? Int {
+                    // Unauthorized
+                    if statusCode == 401 {
+                        callback(false, "Unauthorized")
+                    } else {
+                        callback(false, error)
+                    }
+                }
+            } else {
+                callback(true, nil)
+            }
+        }
+    }
+    
 }

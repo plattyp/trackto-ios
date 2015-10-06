@@ -20,6 +20,9 @@ class ParentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup handling for returning from background
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +51,9 @@ class ParentViewController: UIViewController {
                 
             self.presentViewController(vc, animated: true, completion: nil)
         }
+    }
+    
+    func applicationDidBecomeActive() {
     }
     
     //Hide on keyboard return

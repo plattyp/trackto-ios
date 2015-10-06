@@ -10,17 +10,27 @@ import Foundation
 
 class Objective {
     
+    var objectiveId: Int
     var objectiveName: String
     var objectiveDesc: String
     var subobjectives: [Subobjective]
     
     init() {
+        objectiveId   = 0
         objectiveName = ""
         objectiveDesc = ""
         subobjectives = [Subobjective]()
     }
     
     init(name: String, desc: String) {
+        objectiveId   = 0
+        objectiveName = name
+        objectiveDesc = desc
+        subobjectives = [Subobjective]()
+    }
+    
+    init(name: String, desc: String, id: Int) {
+        objectiveId   = id
         objectiveName = name
         objectiveDesc = desc
         subobjectives = [Subobjective]()

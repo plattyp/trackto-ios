@@ -24,7 +24,7 @@ class EditObjectiveViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Navigation Customization
-        let nextBtn   = UIBarButtonItem(title: "Update", style: UIBarButtonItemStyle.Plain, target: self, action: "updateObjective")
+        let nextBtn   = UIBarButtonItem(title: "Update", style: UIBarButtonItemStyle.Plain, target: self, action: "updateObjectivePressed")
         nextBtn.tintColor = Config.greenColor
         self.navigationItem.setRightBarButtonItem(nextBtn, animated: false)
         
@@ -43,10 +43,6 @@ class EditObjectiveViewController: ParentViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func updateObjective() {
-        print("Update Objective Pressed!")
     }
     
     func closeView() {
@@ -121,7 +117,7 @@ class EditObjectiveViewController: ParentViewController {
         let deleteObjButton = SlateButton(frame: CGRectMake(0, deleteObjPosition, descTextView.frame.width, 50))
         deleteObjButton.center = CGPointMake(scrollView.frame.width / 2, deleteObjButton.frame.origin.y)
         deleteObjButton.setTitle("Delete Objective", forState: UIControlState.Normal)
-        deleteObjButton.addTarget(self, action: "deleteObjective", forControlEvents: UIControlEvents.TouchUpInside)
+        deleteObjButton.addTarget(self, action: "deleteObjectivePressed", forControlEvents: UIControlEvents.TouchUpInside)
         scrollView.addSubview(deleteObjButton)
         
         // Setup Constraints
@@ -162,8 +158,77 @@ class EditObjectiveViewController: ParentViewController {
         }
     }
     
+    func updateObjectivePressed() {
+        if (nameTextField.validatePresence() && descTextView.validatePresence()) {
+            if let id = objectiveId {
+                let objective = Objective(name: nameTextField.text!, desc: descTextView.text, id: id)
+                updateObjective(objective)
+            }
+        }
+    }
+    
+    func updateObjective(objective: Objective) {
+        objectiveService.updateObjective(objective) {
+            success, error -> Void in
+            
+            if (success) {
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.dismissViewControllerAnimated(true, completion: {
+                        () -> Void in
+                        
+                        self.showSuccessMessage("Objective updated successfully")
+                    })
+                }
+            } else {
+                var msg = ""
+                if let errorMsg = error {
+                    msg = errorMsg
+                }
+                self.showErrorMessage(msg)
+            }
+        }
+    }
+    
+    func deleteObjectivePressed() {
+        let alertController = UIAlertController(title: "Are you sure?", message: "Deleting this objective will delete all subobjectives and progress associated", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let yesAction = UIAlertAction(title: "Yes, Delete Objective", style: UIAlertActionStyle.Destructive, handler: {
+            (UIAlertAction) -> Void in
+            self.deleteObjective()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {
+            (UIAlertAction) -> Void in
+        })
+        
+        alertController.addAction(yesAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     func deleteObjective() {
-        print("Delete Objective Pressed!")
+        if let id = objectiveId {
+            objectiveService.deleteObjective(id) {
+                success, error -> Void in
+                
+                if (success) {
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.dismissViewControllerAnimated(true, completion: {
+                            () -> Void in
+                        
+                            self.showSuccessMessage("Objective deleted successfully")
+                        })
+                    }
+                } else {
+                    var msg = ""
+                    if let errorMsg = error {
+                        msg = errorMsg
+                    }
+                    self.showErrorMessage(msg)
+                }
+            }
+        } else {
+            self.showErrorMessage("Something went wrong, try again later")
+        }
     }
 
 }

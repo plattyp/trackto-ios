@@ -123,6 +123,33 @@ class BaseRequest {
         }
     }
     
+    func HTTPPutJSON(url: String,jsonObj: AnyObject, callback: (Dictionary<String, AnyObject>, String?) -> Void) {
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "PUT"
+        
+        request = enrichRequest(request)
+        
+        let data: NSData = jsonObj.dataUsingEncoding(NSUTF8StringEncoding)!
+        request.HTTPBody = data
+        HTTPsendRequest(request) {
+            (response: Dictionary<String, AnyObject>, error: String?) -> Void in
+            if (error != nil) {
+                callback(Dictionary<String, AnyObject>(), error)
+            } else {
+                let data       = self.JSONParseDict(response["data"] as! String)
+                let headers    = response["headers"] as! NSDictionary
+                let statusCode = response["statusCode"] as! Int
+                
+                var parsedResponse = Dictionary<String, AnyObject>()
+                parsedResponse["data"]       = data
+                parsedResponse["header"]     = headers
+                parsedResponse["statusCode"] = statusCode
+                
+                callback(parsedResponse, nil)
+            }
+        }
+    }
+    
     func HTTPDeleteJSON(url: String,callback: (Dictionary<String, AnyObject>, String?) -> Void) {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "DELETE"
