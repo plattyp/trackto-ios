@@ -32,6 +32,6 @@ class AuthHeader {
     }
     
     func toString() -> String {
-        return "accessToken: " + accessToken + ", client: " + client + ", expiry: " + expiry + ", tokenType: " + tokenType + ", uid: " + uid
+        return "accessToken: " + accessToken + ", client: " + client + ", expiry: \(expiry) , tokenType: " + tokenType + ", uid: " + uid
     }
 }

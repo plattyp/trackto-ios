@@ -163,9 +163,11 @@ class SubobjectivesTodayViewController: ParentViewController, UITableViewDataSou
     }
     
     func removeFromTableAtIndex(indexPath: NSIndexPath, animation: UITableViewRowAnimation) {
-        subsToday.removeAtIndex(indexPath.row)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animation)
-        reloadTable()
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.subsToday.removeAtIndex(indexPath.row)
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animation)
+            self.reloadTable()
+        }
     }
     
     func onCellMarkedForHide(subobjectiveToday: SubobjectiveToday, indexPath: NSIndexPath) {

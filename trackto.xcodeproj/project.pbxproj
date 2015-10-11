@@ -27,7 +27,6 @@
 		4C3823F61BB87ED500DCDD49 /* MyObjectivesSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3823F51BB87ED500DCDD49 /* MyObjectivesSectionHeader.swift */; settings = {ASSET_TAGS = (); }; };
 		4C3823F91BB888B100DCDD49 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3823F81BB888B100DCDD49 /* UIImageExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		4C4A71631BBA142500238949 /* EditObjectiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A71621BBA142500238949 /* EditObjectiveViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		4C4A71661BBA1CDB00238949 /* EditObjectiveNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A71651BBA1CDB00238949 /* EditObjectiveNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
 		4C5979CD1BB6F87A006E25BC /* HorizontalButtonGroupWithIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5979CC1BB6F87A006E25BC /* HorizontalButtonGroupWithIcons.swift */; settings = {ASSET_TAGS = (); }; };
 		4C70708A1B9E4F040091E423 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7070891B9E4F040091E423 /* AppDelegate.swift */; };
 		4C70708C1B9E4F040091E423 /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C70708B1B9E4F040091E423 /* ParentViewController.swift */; };
@@ -43,6 +42,7 @@
 		4C7070C01BA27F650091E423 /* AuthHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7070BF1BA27F650091E423 /* AuthHeader.swift */; };
 		4C92EE7C1BB0F6E3003FD536 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92EE7B1BB0F6E3003FD536 /* SettingsViewController.swift */; };
 		4C92EE7E1BB0F7FB003FD536 /* SlateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92EE7D1BB0F7FB003FD536 /* SlateButton.swift */; };
+		4CA854951BC3EE8400EE0276 /* SubobjectiveDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA854941BC3EE8400EE0276 /* SubobjectiveDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		4CCD3DF41BA46E880047A920 /* properties.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CCD3DF31BA46E880047A920 /* properties.plist */; };
 		4CCD3DF61BA46EE50047A920 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD3DF51BA46EE50047A920 /* Config.swift */; };
 		4CCD3DF81BA4E8850047A920 /* SubobjectiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD3DF71BA4E8850047A920 /* SubobjectiveService.swift */; };
@@ -81,7 +81,6 @@
 		4C3823F51BB87ED500DCDD49 /* MyObjectivesSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyObjectivesSectionHeader.swift; sourceTree = "<group>"; };
 		4C3823F81BB888B100DCDD49 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		4C4A71621BBA142500238949 /* EditObjectiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditObjectiveViewController.swift; sourceTree = "<group>"; };
-		4C4A71651BBA1CDB00238949 /* EditObjectiveNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditObjectiveNavigationController.swift; sourceTree = "<group>"; };
 		4C5979CC1BB6F87A006E25BC /* HorizontalButtonGroupWithIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalButtonGroupWithIcons.swift; sourceTree = "<group>"; };
 		4C7070841B9E4F040091E423 /* trackto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trackto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C7070881B9E4F040091E423 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		4C7070BF1BA27F650091E423 /* AuthHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthHeader.swift; sourceTree = "<group>"; };
 		4C92EE7B1BB0F6E3003FD536 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4C92EE7D1BB0F7FB003FD536 /* SlateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlateButton.swift; sourceTree = "<group>"; };
+		4CA854941BC3EE8400EE0276 /* SubobjectiveDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubobjectiveDetailViewController.swift; sourceTree = "<group>"; };
 		4CCD3DF01BA464E00047A920 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = "Pods/../build/Debug-iphoneos/Pods-trackto/KeychainAccess.framework"; sourceTree = "<group>"; };
 		4CCD3DF31BA46E880047A920 /* properties.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = properties.plist; sourceTree = "<group>"; };
 		4CCD3DF51BA46EE50047A920 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -204,15 +204,6 @@
 			name = subobjectives_today;
 			sourceTree = "<group>";
 		};
-		4C4A71641BBA1CBB00238949 /* edit_objective */ = {
-			isa = PBXGroup;
-			children = (
-				4C4A71621BBA142500238949 /* EditObjectiveViewController.swift */,
-				4C4A71651BBA1CDB00238949 /* EditObjectiveNavigationController.swift */,
-			);
-			name = edit_objective;
-			sourceTree = "<group>";
-		};
 		4C70707B1B9E4F040091E423 = {
 			isa = PBXGroup;
 			children = (
@@ -281,7 +272,8 @@
 		4C7070AC1B9E53340091E423 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4C4A71641BBA1CBB00238949 /* edit_objective */,
+				4C4A71621BBA142500238949 /* EditObjectiveViewController.swift */,
+				4CA854941BC3EE8400EE0276 /* SubobjectiveDetailViewController.swift */,
 				4C7070B81BA24F720091E423 /* SubobjectivesTodayViewController.swift */,
 				4C7070BA1BA24FC30091E423 /* MyObjectivesViewController.swift */,
 				4C92EE781BB0F28E003FD536 /* add_objective */,
@@ -510,7 +502,6 @@
 				4CCD3DFA1BA4E9460047A920 /* SubobjectiveToday.swift in Sources */,
 				4C7070C01BA27F650091E423 /* AuthHeader.swift in Sources */,
 				4C7070B31BA24D140091E423 /* BaseRequest.swift in Sources */,
-				4C4A71661BBA1CDB00238949 /* EditObjectiveNavigationController.swift in Sources */,
 				4C029BAC1BAE2014009BF70B /* TextView.swift in Sources */,
 				4C029BAA1BAE1FFD009BF70B /* TextField.swift in Sources */,
 				4C7070B51BA24D850091E423 /* LoginService.swift in Sources */,
@@ -527,6 +518,7 @@
 				4C029BA31BACC579009BF70B /* Objective.swift in Sources */,
 				4C029BA51BACC6EE009BF70B /* Subobjective.swift in Sources */,
 				4C7070B91BA24F720091E423 /* SubobjectivesTodayViewController.swift in Sources */,
+				4CA854951BC3EE8400EE0276 /* SubobjectiveDetailViewController.swift in Sources */,
 				4C70708C1B9E4F040091E423 /* ParentViewController.swift in Sources */,
 				4C4A71631BBA142500238949 /* EditObjectiveViewController.swift in Sources */,
 				4C343DDA1BA6654600F3F6F0 /* MainTabBarController.swift in Sources */,

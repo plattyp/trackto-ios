@@ -36,6 +36,7 @@ class MyObjectivesViewController: ParentViewController, UITableViewDelegate, UIT
     }
     
     func loadData() {
+        startLoading("Loading...")
         objectiveService.getMyObjectives() {
             objs, error -> Void in
             
@@ -59,11 +60,14 @@ class MyObjectivesViewController: ParentViewController, UITableViewDelegate, UIT
                 self.objectives = objs
                 self.reloadTable()
             }
+            
+            self.stopLoading()
         }
     }
     
     func setupTable() {
         self.tableView.backgroundColor = Config.lightGrayColor
+        self.tableView.contentInset    = UIEdgeInsetsMake(0, 0, 200, 0)
     }
     
     func setupView() {
@@ -101,6 +105,11 @@ class MyObjectivesViewController: ParentViewController, UITableViewDelegate, UIT
         return myCell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let sub = objectives[indexPath.section].subobjectives[indexPath.row]
+        onSubobjectiveSelected(sub)
+    }
+    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
@@ -114,8 +123,18 @@ class MyObjectivesViewController: ParentViewController, UITableViewDelegate, UIT
     
     func onEditButtonSelected(objective: MyObjective) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("editObjectiveNav") as! EditObjectiveNavigationController
+        let vc = storyboard.instantiateViewControllerWithIdentifier("editObjectiveNav") as! UINavigationController
         (vc.viewControllers[0] as! EditObjectiveViewController).objectiveId = objective.id
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func onSubobjectiveSelected(subobjective: Subobjective) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("subobjectiveDetailNav") as! UINavigationController
+        (vc.viewControllers[0] as! SubobjectiveDetailViewController).subobjective = subobjective
         
         NSOperationQueue.mainQueue().addOperationWithBlock {
             self.presentViewController(vc, animated: true, completion: nil)

@@ -18,6 +18,7 @@ class LoginService: BaseRequest {
         let jsonObj: AnyObject = "{\"email\": \"\(email)\", \"password\": \"\(password)\"}"
         
         print("Logging In!")
+        wipeOutExistingAuthHeadersFromKeychain()
         
         HTTPPostJSON(loginURL, jsonObj: jsonObj) {
             (response: Dictionary<String, AnyObject>, error: String?) -> Void in
@@ -36,19 +37,7 @@ class LoginService: BaseRequest {
                     }
                 }
                 if (!hasErrors) {
-                    if let header = response["header"] as? NSDictionary {
-                        if let accessToken = header["access-token"] as? String {
-                            if let client = header["client"] as? String {
-                                if let expiry = header["expiry"] as? String {
-                                    if let uid = header["uid"] as? String {
-                                        let headers = AuthHeader(token: accessToken, clientSrc: client, expiryNum: expiry, userId: uid)
-                                        self.saveAuthHeaderInKeychain(headers)
-                                        self.saveEmailAndPasswordInKeychain(email, password: password)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    self.saveEmailAndPasswordInKeychain(email, password: password)
                     callback(true,nil)
                 }
             }

@@ -12,6 +12,7 @@ import KeychainAccess
 class BaseRequest {
     
     func HTTPsendRequest(request: NSMutableURLRequest,callback: (Dictionary<String, AnyObject>, String?) -> Void) {
+
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request,completionHandler: {
             data, response, error in
             if error != nil {
@@ -71,6 +72,7 @@ class BaseRequest {
     func HTTPGetJSON(url: String,callback: (Dictionary<String, AnyObject>, String?) -> Void) {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         
+        request = addBaseHeaders(request)
         request = enrichRequest(request)
         
         HTTPsendRequest(request) {
@@ -100,7 +102,9 @@ class BaseRequest {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "POST"
         
+        request = addBaseHeaders(request)
         request = enrichRequest(request)
+        
         
         let data: NSData = jsonObj.dataUsingEncoding(NSUTF8StringEncoding)!
         request.HTTPBody = data
@@ -127,6 +131,7 @@ class BaseRequest {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "PUT"
         
+        request = addBaseHeaders(request)
         request = enrichRequest(request)
         
         let data: NSData = jsonObj.dataUsingEncoding(NSUTF8StringEncoding)!
@@ -154,6 +159,7 @@ class BaseRequest {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "DELETE"
         
+        request = addBaseHeaders(request)
         request = enrichRequest(request)
         
         HTTPsendRequest(request) {
@@ -175,10 +181,16 @@ class BaseRequest {
         }
     }
     
-    func enrichRequest(request: NSMutableURLRequest) -> NSMutableURLRequest {
+    func addBaseHeaders(request: NSMutableURLRequest) -> NSMutableURLRequest {
         // Set Base Header Fields
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.timeoutInterval = 6.0
+        
+        return request
+    }
+    
+    func enrichRequest(request: NSMutableURLRequest) -> NSMutableURLRequest {
         
         // Set Header Fields Needed for Authentication
         let authHeader = retrieveAuthHeaderFromKeychain()
@@ -190,27 +202,29 @@ class BaseRequest {
             request.addValue(authHeader.uid,forHTTPHeaderField: "uid")
         }
         
-        request.timeoutInterval = 6.0
-        
         return request
     }
     
     func retrieveAuthHeaderFromKeychain() -> AuthHeader {
         let keychain = Keychain(service: "com.plattypuslabs.trackto")
         var authHeader: AuthHeader = AuthHeader()
-        if let accessToken = try! keychain.getString("accessToken")  {
-            if let client = try! keychain.getString("client") {
-                if let expiry = try! keychain.getString("expiry") {
-                    if let uid = try! keychain.getString("uid") {
-                        authHeader = AuthHeader(
-                            token: accessToken,
-                            clientSrc: client,
-                            expiryNum: expiry,
-                            userId: uid
-                        )
+        do {
+            if let accessToken = try keychain.getString("accessToken")  {
+                if let client = try keychain.getString("client") {
+                    if let expiry = try keychain.getString("expiry") {
+                        if let uid = try keychain.getString("uid") {
+                            authHeader = AuthHeader(
+                                token: accessToken,
+                                clientSrc: client,
+                                expiryNum: expiry,
+                                userId: uid
+                            )
+                        }
                     }
                 }
             }
+        } catch {
+            print("Something went wrong parsing Auth Header")
         }
         return authHeader
     }
@@ -230,10 +244,20 @@ class BaseRequest {
     
     func saveAuthHeaderInKeychain(header: AuthHeader) {
         let keychain = Keychain(service: "com.plattypuslabs.trackto")
-        keychain["accessToken"] = header.accessToken
-        keychain["client"]      = header.client
-        keychain["expiry"]      = header.expiry
-        keychain["uid"]         = header.uid
+        let existingHeader = retrieveAuthHeaderFromKeychain()
+        
+        if (existingHeader.client.isEmpty || existingHeader.client == header.client) {
+            do {
+                try keychain.set(header.accessToken, key: "accessToken")
+                try keychain.set(header.client, key: "client")
+                try keychain.set(header.expiry, key: "expiry")
+                try keychain.set(header.uid, key: "uid")
+            } catch {
+                print("Error setting keychain")
+            }
+        } else {
+            print("Not Saving Header Due to Client Mismatch")
+        }
     }
     
     func saveEmailAndPasswordInKeychain(email: String, password: String) {
@@ -272,6 +296,18 @@ class BaseRequest {
         do {
             try keychain.remove("email")
             try keychain.remove("password")
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    func wipeOutExistingAuthHeadersFromKeychain() {
+        let keychain = Keychain(service: "com.plattypuslabs.trackto")
+        do {
+            try keychain.remove("accessToken")
+            try keychain.remove("client")
+            try keychain.remove("expiry")
+            try keychain.remove("uid")
         } catch let error {
             print(error)
         }
